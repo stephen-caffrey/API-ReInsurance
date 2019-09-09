@@ -1,6 +1,5 @@
 package com.leaseplanis.data.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leaseplanis.data.enums.Locations;
 import com.leaseplanis.data.enums.Peril;
 import lombok.Builder;
@@ -15,16 +14,10 @@ import java.util.Optional;
 @Data
 public class Deal {
     private int id;
-    public int loss;
-    @JsonIgnore
     private int retention;
-    @JsonIgnore
     private int limit;
-    @JsonIgnore
     private EnumSet<Peril> perils;
-    @JsonIgnore
     private EnumSet<Locations> states;
-    @JsonIgnore
     private boolean covered;
 
     public Optional<Deal> cover(Event event) {
