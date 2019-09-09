@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 @Data
 @Slf4j
 @Builder
-public class DealDao {
+public class Deal {
     public int id;
     public int loss;
 }

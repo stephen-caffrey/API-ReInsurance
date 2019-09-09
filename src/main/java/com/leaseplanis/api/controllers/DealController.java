@@ -1,6 +1,6 @@
 package com.leaseplanis.api.controllers;
 
-import com.leaseplanis.services.dao.DealDao;
+import com.leaseplanis.services.dao.Deal;
 import com.leaseplanis.services.DealsService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping(path = "/deals")
+@RequestMapping(path = APIVersion.VERSION)
 public class DealController {
 
     DealsService dealsService;
@@ -24,12 +24,8 @@ public class DealController {
         this.dealsService = dealsService;
     }
 
-    @GetMapping("/affected/{id}")
-    ResponseEntity<List<DealDao>> get(@PathVariable int id) {
-        if(id > 4 || id <= 0){
-            return ResponseEntity.ok(null);
-        }
-
+    @GetMapping("/deals/event/{id}")
+    ResponseEntity<List<Deal>> get(@PathVariable int id) {
         return ResponseEntity.ok(dealsService.getAffected(id));
     }
 }

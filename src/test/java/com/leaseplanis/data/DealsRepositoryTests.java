@@ -2,6 +2,8 @@ package com.leaseplanis.data;
 
 import com.leaseplanis.data.entities.Deal;
 import com.leaseplanis.data.entities.Event;
+import com.leaseplanis.data.enums.Locations;
+import com.leaseplanis.data.enums.Peril;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +27,8 @@ public class DealsRepositoryTests {
 
     @Test
 	public void testEvent1(){
-        Event event = eventRepository.findById(EventRepository.EVENT1_ID).get();
+        Event event = Event.builder().peril(Peril.EARTHQUAKE).state(Locations.CALIFORNIA).loss(1000).build();
+        eventRepository.save(event);
 		List<Deal> affectedDeals = this.dealsRepository.getAffected(event);
 		assertTrue(affectedDeals.size() ==1);
         Optional<Deal> deal = affectedDeals.stream().filter(d -> d.getId() == dealsRepository.DEAL1_ID).findAny();
@@ -35,7 +38,7 @@ public class DealsRepositoryTests {
 
     @Test
     public void testEvent2(){
-        Event event = eventRepository.findById(EventRepository.EVENT2_ID).get();
+        Event event = Event.builder().peril(Peril.FLOOD).state(Locations.LOUISIANA).loss(500).build();
         List<Deal> affectedDeals = this.dealsRepository.getAffected(event);
         assertTrue(affectedDeals.size() ==1);
         Optional<Deal> deal = affectedDeals.stream().filter(d -> d.getId() == dealsRepository.DEAL3_ID).findAny();
@@ -45,7 +48,7 @@ public class DealsRepositoryTests {
 
     @Test
     public void testEvent3(){
-        Event event = eventRepository.findById(EventRepository.EVENT3_ID).get();
+        Event event = Event.builder().peril(Peril.FLOOD).state(Locations.FLORIDA).loss(750).build();
         List<Deal> affectedDeals = this.dealsRepository.getAffected(event);
         assertTrue(affectedDeals.size() ==1);
 
@@ -56,7 +59,7 @@ public class DealsRepositoryTests {
 
     @Test
     public void testEvent4(){
-        Event event = eventRepository.findById(EventRepository.EVENT4_ID).get();
+        Event event = Event.builder().peril(Peril.HURRICANE).state(Locations.FLORIDA).loss(2000).build();
         List<Deal> affectedDeals = this.dealsRepository.getAffected(event);
         assertTrue(affectedDeals.size() ==2);
 

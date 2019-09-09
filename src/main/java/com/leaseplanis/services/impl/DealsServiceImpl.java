@@ -4,7 +4,7 @@ import com.leaseplanis.data.DealsRepository;
 import com.leaseplanis.data.EventRepository;
 import com.leaseplanis.data.entities.Event;
 import com.leaseplanis.services.DealsService;
-import com.leaseplanis.services.dao.DealDao;
+import com.leaseplanis.services.dao.Deal;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,9 +28,8 @@ public class DealsServiceImpl implements DealsService {
     }
 
     @Override
-    public List<DealDao> getAffected(int eventID){
-        Optional<Event> optEvent = eventRepository.findById(eventID);
-        Event event = optEvent.get();
-        return dealsRepository.getAffected(event).stream().map(d -> DealDao.builder().id(d.getId()).loss(d.calculateLoss(event)).build()).collect(Collectors.toList());
+    public List<Deal> getAffected(int eventID){
+        Event event = eventRepository.findById(eventID);
+        return dealsRepository.getAffected(event).stream().map(d -> Deal.builder().id(d.getId()).loss(d.calculateLoss(event)).build()).collect(Collectors.toList());
     }
 }

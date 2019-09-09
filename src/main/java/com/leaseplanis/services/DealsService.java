@@ -1,9 +1,9 @@
 package com.leaseplanis.services;
 
-import com.leaseplanis.services.dao.DealDao;
+import com.leaseplanis.services.dao.Deal;
 
 import java.util.List;
 
 public interface DealsService {
-    List<DealDao> getAffected(int eventID);
+    List<Deal> getAffected(int eventID);
 }
