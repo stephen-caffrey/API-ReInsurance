@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Slf4j
@@ -28,8 +29,8 @@ public class EventController {
         return ResponseEntity.created(location).body(newEvent);
     }
 
-    @GetMapping("/event/{id}")
-    ResponseEntity<Event> get(@PathVariable int id) {
-        return ResponseEntity.ok(repository.findById(id));
+    @GetMapping("/events")
+    ResponseEntity<List<Event>> getAll() {
+        return ResponseEntity.ok(repository.findAll());
     }
 }

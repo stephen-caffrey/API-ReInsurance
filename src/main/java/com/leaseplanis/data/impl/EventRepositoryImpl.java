@@ -19,12 +19,30 @@ public class EventRepositoryImpl implements EventRepository {
     @Override
     public Event save(Event event) {
         event.setId(this.events.size()+1);
-        events.add(event);
+        saveAll(event);
         return event;
+    }
+
+    @Override
+    public List<Event> findAll() {
+        return this.events;
     }
 
     @Override
     public Event findById(int eventID) {
         return events.stream().filter(e->e.getId() == eventID).findAny().get();
+    }
+
+    protected void saveAll(Event... events) {
+        this.events.addAll(Arrays.asList(events));
+    }
+
+    @PostConstruct
+    private void init(){
+        Event event1 = Event.builder().id(EventRepository.EVENT1_ID).peril(Peril.EARTHQUAKE).state(Locations.CALIFORNIA).loss(1000).build();
+        Event event2 = Event.builder().id(EventRepository.EVENT2_ID).peril(Peril.FLOOD).state(Locations.LOUISIANA).loss(500).build();
+        Event event3 = Event.builder().id(EventRepository.EVENT3_ID).peril(Peril.FLOOD).state(Locations.FLORIDA).loss(750).build();
+        Event event4 = Event.builder().id(EventRepository.EVENT4_ID).peril(Peril.HURRICANE).state(Locations.FLORIDA).loss(2000).build();
+        saveAll(event1,event2,event3,event4);
     }
 }
